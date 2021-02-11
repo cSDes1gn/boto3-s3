@@ -18,6 +18,7 @@ logging.basicConfig(
 
 target_file = os.environ['TARGET_FILE']
 bucket = os.environ['BUCKET']
+obj = os.environ['OBJECT']
 
 logging.info("S3 uploader script")
 logging.info("------------------")
@@ -30,6 +31,6 @@ s3 = boto3.client(
     aws_secret_access_key=os.environ['ACCESS_KEY']
 )
 with open(target_file, "rb") as f:
-    s3.upload_file(f, bucket)
+    s3.upload_fileobj(f, bucket, obj)
 
 logging.info("S3 upload complete.")
